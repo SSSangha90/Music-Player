@@ -2,22 +2,37 @@ import React from 'react'
 
 import { Grid } from '@material-ui/core'
 
-import { SearchBar, VideoList, VideoDetail } from './Components'
+import { SearchBar, VideoList, VideoDetail } from './Components/index'
 
 import youtube from './API/YouTube'
 // reference to axios instance
 
 class App extends React.Component {
+
+    // async func as we fetch using API
+    handleSubmit = async (searchTerm) => {
+        const response = await youtube.get('search', { 
+            params: { 
+                part: 'snippet',
+                maxResults: 5,
+                key: 'AIzaSyDXgAKBbcO_YugfekQzok6HXQGWubhbLw8',
+                q: searchTerm,
+            }
+        })
+        console.log(response)
+    }
+
     render(){
         return(
-            <Grid justify="centre" container spacing={16}>
+            <>
+            <Grid justify="center" container spacing={10}>
                 <Grid item xs={12}>
-                    <Grid container spacing={16}>
+                    <Grid container spacing={10}>
                         <Grid item xs={12}>
-                            {/** Search Bar */}
+                            <SearchBar onFormSubmit={this.handleSubmit} />
                         </Grid>
                         <Grid item xs={8}>
-                            {/** Video Details */}
+                            <VideoDetail />
                         </Grid>
                         <Grid item xs={4}>
                             {/** Video List */}
@@ -25,6 +40,7 @@ class App extends React.Component {
                     </Grid>
                 </Grid>
             </Grid>
+            </>
         )
     }
 }

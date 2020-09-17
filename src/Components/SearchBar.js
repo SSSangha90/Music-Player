@@ -22,7 +22,6 @@ class SearchBar extends React.Component {
         const { onFormSubmit } = this.props
 
         onFormSubmit(searchTerm)
-        
     }
 
     render(){
